@@ -1,0 +1,7 @@
+server:
+  port: ${serverPort:8688}
+  max-http-header-size: 10000
+  tomcat:
+    remoteip:
+      remote-ip-header: X-Forwarded-For
+  forward-headers-strategy: native
