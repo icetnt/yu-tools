@@ -7,7 +7,7 @@
 java启动命令：
 
 ```
-java -jar -DjellyfinUrl=http://127.0.0.1:8096 -DjellyfinApiToken=xxxxxx yu-tools.jar
+java -jar -DjellyfinUrl={url} -DjellyfinApiToken={apiToken} yu-tools.jar
 ```
 
 docker启动命令（将jar包放至宿主机"/opt/jar/"目录下）：
