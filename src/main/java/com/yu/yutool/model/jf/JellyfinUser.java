@@ -1,4 +1,4 @@
-package com.yu.yutool.model;
+package com.yu.yutool.model.jf;
 
 import lombok.Data;
 

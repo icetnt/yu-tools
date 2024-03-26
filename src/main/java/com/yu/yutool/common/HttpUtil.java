@@ -160,6 +160,9 @@ public class HttpUtil {
         try {
             // 执行请求
             response = commonHttpClient.execute(httpGet);
+            if (response.getStatusLine().getStatusCode() == 401 || response.getStatusLine().getStatusCode() == 403) {
+                return String.valueOf(response.getStatusLine().getStatusCode());
+            }
             // 获取响应实体
             HttpEntity entity = response.getEntity();
             // 获取响应信息
@@ -201,6 +204,9 @@ public class HttpUtil {
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(postNameValuePairs(parameters), charset));
             response = commonHttpClient.execute(httpPost);
+            if (response.getStatusLine().getStatusCode() == 401) {
+                return "401";
+            }
             if (response.getStatusLine().getStatusCode() < 300) {
                 if(response.getStatusLine().getStatusCode() != 204) {
                     HttpEntity entity = response.getEntity();
