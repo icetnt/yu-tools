@@ -4,13 +4,13 @@
 
 <br>
 
-###java启动命令：
+### java启动命令：
 ```
 java -jar -DjfUrl={url} -DjfToken={apiToken} -DmpUrl={mpUrl} -DmpUser={mpUser} -DmpPwd={mpPwd} \
 -DqbUrl={qbUrl} -DqbUser={qbUser} -DqbPwd={qbPwd} -DqbUMin={qbUMin} -DqbUMax={qbUMax} -DqbUMPU={qbUMPU} yu-tools.jar
 ```
 
-###docker启动命令（将jar包放至宿主机"/opt/jar/"目录下）：
+### docker启动命令（将jar包放至宿主机"/opt/jar/"目录下）：
 ```
 docker run -d \
  --name=yu-tools \
@@ -33,7 +33,7 @@ docker run -d \
   -jar /opt/jar/yu-tools.jar
 ```
 
-###参数说明：
+### 参数说明：
 | 参数               | 是否必填 | 说明             | 示例                             |
 | ------------------ | -------- | ---------------- | -------------------------------- |
 | -DjfUrl  | 否       | jellyfin 访问地址     | http://127.0.0.1:8096            |
@@ -49,11 +49,11 @@ docker run -d \
 | -DqbUMPU  | 否       | jellyfin 在线观看单用户占用上传带宽（单位MB/s）   | 2 |
 
 
-###部署完成验证：
+### 部署完成验证：
 访问：http://127.0.0.1:8688/hello/world
 
 
-###现有功能：
+### 现有功能：
 1.刷新jellyfin媒体库，访问：http://127.0.0.1:8688/jellyfin/media/refresh
 <br>
 2.MoviePilot下载完成后自动刷新jellyfin媒体库<br>
@@ -66,7 +66,7 @@ docker run -d \
 ![img_1.png](img/img_1.png)![img_2.png](img/img_2.png)
 <br>
 
-###TODO：
+### TODO：
 1.自动限速功能排除本地用户
 
 <br>
