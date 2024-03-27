@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.yu.yutool.exception.BaseException;
 import com.yu.yutool.model.mp.MPDownloadingInfo;
 import com.yu.yutool.model.mp.MPLoginResp;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * MoviePilotApiUtil
  */
+@Slf4j
 public class MoviePilotApiUtil {
 
     private static String ACCESS_TOKEN = "";
@@ -25,7 +27,12 @@ public class MoviePilotApiUtil {
         try {
             String resp = HttpUtil.sendPost(SysConfigParmas.MOVIE_PILOT_URL + "/api/v1/login/access-token", null, parameters, "utf-8");
             MPLoginResp loginResp = JSON.parseObject(resp, MPLoginResp.class);
-            ACCESS_TOKEN = loginResp.getAccess_token();
+            if(null != loginResp) {
+                ACCESS_TOKEN = loginResp.getAccess_token();
+                log.info("MP登录成功!");
+            }else {
+                throw new BaseException("失败");
+            }
             return ACCESS_TOKEN;
         }catch (Exception e) {
             throw new BaseException("MP登录失败：" + e.getMessage(), e);

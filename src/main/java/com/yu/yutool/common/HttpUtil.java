@@ -204,8 +204,8 @@ public class HttpUtil {
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(postNameValuePairs(parameters), charset));
             response = commonHttpClient.execute(httpPost);
-            if (response.getStatusLine().getStatusCode() == 401) {
-                return "401";
+            if (response.getStatusLine().getStatusCode() == 401 || response.getStatusLine().getStatusCode() == 403) {
+                return String.valueOf(response.getStatusLine().getStatusCode());
             }
             if (response.getStatusLine().getStatusCode() < 300) {
                 if(response.getStatusLine().getStatusCode() != 204) {
@@ -300,6 +300,9 @@ public class HttpUtil {
                 addHeadsToHttpPost(post, headers);
             }
             HttpResponse httpResponse = commonHttpClient.execute(post);
+            if (httpResponse.getStatusLine().getStatusCode() == 401 || httpResponse.getStatusLine().getStatusCode() == 403) {
+                return String.valueOf(httpResponse.getStatusLine().getStatusCode());
+            }
             HttpEntity entity = httpResponse.getEntity();
             response = EntityUtils.toString(entity, CHARSET);
             httpCode = httpResponse.getStatusLine().getStatusCode();
@@ -327,6 +330,9 @@ public class HttpUtil {
             stringEntity.setContentType("application/x-www-form-urlencoded");
             post.setEntity(stringEntity);
             HttpResponse httpResponse = commonHttpClient.execute(post);
+            if (httpResponse.getStatusLine().getStatusCode() == 401 || httpResponse.getStatusLine().getStatusCode() == 403) {
+                return String.valueOf(httpResponse.getStatusLine().getStatusCode());
+            }
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 HttpEntity entity = httpResponse.getEntity();
                 response = EntityUtils.toString(entity, "UTF-8");
