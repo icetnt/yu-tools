@@ -1,6 +1,6 @@
 # yu-tools
 
-一个NAS辅助工具性的java服务
+一个NAS辅助工具java服务
 
 <br>
 
