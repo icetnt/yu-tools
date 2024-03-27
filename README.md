@@ -2,6 +2,18 @@
 
 一个NAS辅助工具java服务
 
+
+### 现有功能：
+1.手动刷新jellyfin媒体库，浏览器访问：http://127.0.0.1:8688/jellyfin/media/refresh
+<br>
+2.MoviePilot下载完成后自动刷新jellyfin媒体库<br>
+(MoviePilot需安装webhook插件，配置POST请求，配置本服务webhook地址：http://127.0.0.1:8688/webhook/mp)
+<br>![img_3.png](img/img_3.png)![img_4.png](img/img_4.png)
+<br>
+3.jellyfin有在线用户观看时，自动更新qBittorrent上传限速<br>
+(jellyfin需安装webhook插件，NotificationType项至少勾选"Playback Progress"，配置本服务webhook地址：http://127.0.0.1:8688/webhook/jf)
+<br>
+![img_1.png](img/img_1.png)![img_2.png](img/img_2.png)
 <br>
 
 ### java启动命令：
@@ -48,26 +60,12 @@ docker run -d \
 | -DqbUMax  | 否       | qBittorrent 上传限速最大值（单位MB/s）   | 0.5 |
 | -DqbUMPU  | 否       | 单用户所需占用上传带宽（单位MB/s）   | 2 |
 
-
 ### 部署完成验证：
 访问：http://127.0.0.1:8688/hello/world
 
-
-### 现有功能：
-1.刷新jellyfin媒体库，访问：http://127.0.0.1:8688/jellyfin/media/refresh
-<br>
-2.MoviePilot下载完成后自动刷新jellyfin媒体库<br>
-(MoviePilot需安装webhook插件，配置POST请求，配置本服务webhook地址：http://127.0.0.1:8688/webhook/mp)
-<br>![img_3.png](img/img_3.png)![img_4.png](img/img_4.png)
-<br>
-3.jellyfin有在线用户观看时，自动更新qBittorrent上传限速<br>
-(jellyfin需安装webhook插件，NotificationType项至少勾选"Playback Progress"，配置本服务webhook地址：http://127.0.0.1:8688/webhook/jf)
-<br>
-![img_1.png](img/img_1.png)![img_2.png](img/img_2.png)
-<br>
-
 ### TODO：
-1.自动限速功能排除本地用户
+1.自动限速功能排除本地用户<br>
+2.待适配原生docker
 
 <br>
 待更新（有需要的功能欢迎提宝贵建议）...
