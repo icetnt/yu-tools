@@ -1,13 +1,14 @@
 # yu-tools
 
-一个工具性的java服务
+一个NAS辅助工具性的java服务
 
 <br>
 
 java启动命令：
 
 ```
-java -jar -DjellyfinUrl={url} -DjellyfinApiToken={apiToken} yu-tools.jar
+java -jar -DjfUrl={url} -DjfToken={apiToken} -DmpUrl={mpUrl} -DmpUser={mpUser} -DmpPwd={mpPwd} \
+-DqbUrl={qbUrl} -DqbUser={qbUser} -DqbPwd={qbPwd} -DqbUMin={qbUMin} -DqbUMax={qbUMax} -DqbUMPU={qbUMPU} yu-tools.jar
 ```
 
 docker启动命令（将jar包放至宿主机"/opt/jar/"目录下）：
@@ -20,8 +21,17 @@ docker run -d \
  -e TZ=Asia/Shanghai \
  -v /opt/jar/yu-tools.jar:/opt/jar/yu-tools.jar \
  java:8u111 java \
-  -DjellyfinUrl={url} \
-  -DjellyfinApiToken={apiToken} \
+  -DjfUrl={url} \
+  -DjfToken={apiToken} \
+  -DmpUrl={mpUrl} \
+  -DmpUser={mpUser} \
+  -DmpPwd={mpPwd} \
+  -DqbUrl={qbUrl} \
+  -DqbUser={qbUser} \
+  -DqbPwd={qbPwd} \
+  -DqbUMin={qbUMin} \
+  -DqbUMax={qbUMax} \
+  -DqbUMPU={qbUMPU} \
   -jar /opt/jar/yu-tools.jar
 ```
 
@@ -30,8 +40,17 @@ docker run -d \
 
 | 参数               | 是否必填 | 说明             | 示例                             |
 | ------------------ | -------- | ---------------- | -------------------------------- |
-| -DjellyfinUrl      | 否       | jellyfin访问地址 | http://127.0.0.1:8096            |
-| -DjellyfinApiToken | 否       | jellyfin API密钥 | 2csa00a4a10f33aca16a1cse38c4d9c7 |
+| -DjfUrl  | 否       | jellyfin 访问地址     | http://127.0.0.1:8096            |
+| -DjfToken| 否       | jellyfin API密钥     | 2asa10a4a10123aca16a13sec8c4d1v6 |
+| -DmpUrl  | 否       | MoviePilot API地址   | http://127.0.0.1:3001            |
+| -DmpUser | 否       | MoviePilot 登录用户名 | admin |
+| -DmpPwd  | 否       | MoviePilot 登录密码   | adminpassword |
+| -DqbUrl  | 否       | qBittorrent 访问地址    | http://127.0.0.1:8080            |
+| -DqbUser | 否       | qBittorrent 登录用户名 | admin |
+| -DqbPwd  | 否       | qBittorrent 登录密码   | adminpassword |
+| -DqbUMin  | 否       | qBittorrent 上传限速最小值（单位MB/s）   | 10 |
+| -DqbUMax  | 否       | qBittorrent 上传限速最大值（单位MB/s）   | 0.5 |
+| -DqbUMPU  | 否       | jellyfin 在线观看单用户占用上传带宽（单位MB/s）   | 2 |
 
 <br>
 
@@ -44,7 +63,19 @@ docker run -d \
 现有功能：
 
 1.刷新jellyfin媒体库，访问：http://127.0.0.1:8688/jellyfin/media/refresh
-
+<br>
+2.MoviePilot下载完成后自动刷新jellyfin媒体库
+（MoviePilot需安装webhook插件，配置POST请求，配置本服务webhook地址：http://127.0.0.1:8688/webhook/mp）
+<br>![img_3.png](img/img_3.png)![img_4.png](img/img_4.png)
+<br>
+3.jellyfin有在线用户观看时，自动更新qBittorrent上传限速
+（jellyfin需安装webhook插件，NotificationType项至少勾选"Playback Progress"，配置本服务webhook地址：http://127.0.0.1:8688/webhook/jf）
+<br>
+![img_1.png](img/img_1.png)![img_2.png](img/img_2.png)
 <br>
 
+TODO：<br>
+1.自动限速功能排除本地用户
+
+<br>
 待更新（有需要的功能欢迎提宝贵建议）...
