@@ -46,7 +46,7 @@ docker run -d \
 | -DqbPwd  | 否       | qBittorrent 登录密码   | adminpassword |
 | -DqbUMin  | 否       | qBittorrent 上传限速最小值（单位MB/s）   | 10 |
 | -DqbUMax  | 否       | qBittorrent 上传限速最大值（单位MB/s）   | 0.5 |
-| -DqbUMPU  | 否       | jellyfin 在线观看单用户占用上传带宽（单位MB/s）   | 2 |
+| -DqbUMPU  | 否       | 单用户所需占用上传带宽（单位MB/s）   | 2 |
 
 
 ### 部署完成验证：
