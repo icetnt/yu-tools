@@ -21,6 +21,10 @@ public class JellyfinTask {
             for(String key : new HashSet<>(CacheUtil.JF_WATCHING_USER_CACHE.keySet())) {
                 CacheUtil.JF_WATCHING_USER_CACHE.put(key, CacheUtil.JF_WATCHING_USER_CACHE.get(key) - 10);
                 if(CacheUtil.JF_WATCHING_USER_CACHE.get(key) <= 0) {
+                    String[] keyArr = key.split(":");
+                    if(keyArr.length == 3) {
+                        log.info(String.format("结束观看...用户:%s; 设备:%s; 客户端:%s", keyArr[0], keyArr[1], keyArr[2]));
+                    }
                     CacheUtil.JF_WATCHING_USER_CACHE.remove(key);
                 }
             }
