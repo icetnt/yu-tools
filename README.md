@@ -4,15 +4,13 @@
 
 <br>
 
-java启动命令：
-
+###java启动命令：
 ```
 java -jar -DjfUrl={url} -DjfToken={apiToken} -DmpUrl={mpUrl} -DmpUser={mpUser} -DmpPwd={mpPwd} \
 -DqbUrl={qbUrl} -DqbUser={qbUser} -DqbPwd={qbPwd} -DqbUMin={qbUMin} -DqbUMax={qbUMax} -DqbUMPU={qbUMPU} yu-tools.jar
 ```
 
-docker启动命令（将jar包放至宿主机"/opt/jar/"目录下）：
-
+###docker启动命令（将jar包放至宿主机"/opt/jar/"目录下）：
 ```
 docker run -d \
  --name=yu-tools \
@@ -35,9 +33,7 @@ docker run -d \
   -jar /opt/jar/yu-tools.jar
 ```
 
-<br>
-参数说明：
-
+###参数说明：
 | 参数               | 是否必填 | 说明             | 示例                             |
 | ------------------ | -------- | ---------------- | -------------------------------- |
 | -DjfUrl  | 否       | jellyfin 访问地址     | http://127.0.0.1:8096            |
@@ -52,29 +48,25 @@ docker run -d \
 | -DqbUMax  | 否       | qBittorrent 上传限速最大值（单位MB/s）   | 0.5 |
 | -DqbUMPU  | 否       | jellyfin 在线观看单用户占用上传带宽（单位MB/s）   | 2 |
 
-<br>
 
-部署完成验证：
-
+###部署完成验证：
 访问：http://127.0.0.1:8688/hello/world
 
-<br>
 
-现有功能：
-
+###现有功能：
 1.刷新jellyfin媒体库，访问：http://127.0.0.1:8688/jellyfin/media/refresh
 <br>
-2.MoviePilot下载完成后自动刷新jellyfin媒体库
-（MoviePilot需安装webhook插件，配置POST请求，配置本服务webhook地址：http://127.0.0.1:8688/webhook/mp）
+2.MoviePilot下载完成后自动刷新jellyfin媒体库<br>
+(MoviePilot需安装webhook插件，配置POST请求，配置本服务webhook地址：http://127.0.0.1:8688/webhook/mp)
 <br>![img_3.png](img/img_3.png)![img_4.png](img/img_4.png)
 <br>
-3.jellyfin有在线用户观看时，自动更新qBittorrent上传限速
-（jellyfin需安装webhook插件，NotificationType项至少勾选"Playback Progress"，配置本服务webhook地址：http://127.0.0.1:8688/webhook/jf）
+3.jellyfin有在线用户观看时，自动更新qBittorrent上传限速<br>
+(jellyfin需安装webhook插件，NotificationType项至少勾选"Playback Progress"，配置本服务webhook地址：http://127.0.0.1:8688/webhook/jf)
 <br>
 ![img_1.png](img/img_1.png)![img_2.png](img/img_2.png)
 <br>
 
-TODO：<br>
+###TODO：
 1.自动限速功能排除本地用户
 
 <br>
