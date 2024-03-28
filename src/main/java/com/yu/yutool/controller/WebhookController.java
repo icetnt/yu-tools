@@ -33,13 +33,17 @@ public class WebhookController {
         if(StringUtils.equals(noticeInfo.getNotificationType(), "PlaybackStart") || StringUtils.equals(noticeInfo.getNotificationType(), "PlaybackProgress")) {
             if(!StringUtils.containsIgnoreCase(noticeInfo.getDeviceName(), "internal")) {
                 String watchingKey = noticeInfo.getNotificationUsername() + ":" + noticeInfo.getDeviceName() + ":" + noticeInfo.getClientName();
-                if(!CacheUtil.JF_WATCHING_USER_CACHE.containsKey(watchingKey)) {
+                if(CacheUtil.JF_WATCHING_USER_CACHE.containsKey(watchingKey)) {
+                    //更新观看者
+                    CacheUtil.JF_WATCHING_USER_CACHE.put(watchingKey, 30);
+                }else {
+                    //新增观看者
                     String mediaName = StringUtils.equalsIgnoreCase(noticeInfo.getItemType(), "movie") ? noticeInfo.getName() : noticeInfo.getSeriesName() + "-" + noticeInfo.getName();
                     log.info(String.format("开始观看...用户:%s; 设备:%s; 客户端:%s; 观看内容:%s",
                             noticeInfo.getNotificationUsername(), noticeInfo.getDeviceName(), noticeInfo.getClientName(), mediaName));
+                    CacheUtil.JF_WATCHING_USER_CACHE.put(watchingKey, 30);
+                    QBApiUtil.setUploadLimitByJfWatching();
                 }
-                CacheUtil.JF_WATCHING_USER_CACHE.put(watchingKey, 30);
-                QBApiUtil.setUploadLimitByJfWatching();
             }
         }
         return "ok";

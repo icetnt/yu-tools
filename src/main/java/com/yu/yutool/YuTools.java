@@ -11,9 +11,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync
 @EnableScheduling
 @SpringBootApplication
-public class YuToolsApplication {
+public class YuTools {
     public static void main(String[] args) {
-        SpringApplication.run(YuToolsApplication.class, args);
+        SpringApplication springApplication = new SpringApplication(YuTools.class);
+//        springApplication.setBannerMode(Banner.Mode.OFF);
+        springApplication.run(args);
         log.info("====================YU-TOOLS SERVICE STARTED!====================");
         SysConfigParmas.init();
     }
