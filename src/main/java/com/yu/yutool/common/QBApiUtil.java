@@ -1,6 +1,8 @@
 package com.yu.yutool.common;
 
+import com.alibaba.fastjson.JSON;
 import com.yu.yutool.exception.BaseException;
+import com.yu.yutool.model.qb.QBTorrentDetail;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.Cookie;
@@ -52,6 +54,27 @@ public class QBApiUtil {
             throw new BaseException("QB登录失败：" + e.getMessage(), e);
         }
         return ACCESS_TOKEN;
+    }
+
+    /**
+     * 查询详情
+     */
+    public static QBTorrentDetail getDetail(String hash) {
+        try {
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Cookie", "SID=" + ACCESS_TOKEN);
+            String resp = HttpUtil.sendGet(SysConfigParmas.QB_URL + "/api/v2/torrents/properties?hash=" + hash, headers, null, "utf-8");
+            if(StringUtils.equals(resp, "401") || StringUtils.equals(resp, "403")) {
+                headers.put("Cookie", "SID=" + login());
+                resp = HttpUtil.sendGet(SysConfigParmas.QB_URL + "/api/v2/torrents/properties?hash=" + hash, headers, null, "utf-8");
+            }
+            if(StringUtils.isBlank(resp) || StringUtils.equals(resp, "404")) {
+                return null;
+            }
+            return JSON.parseObject(resp, QBTorrentDetail.class);
+        }catch (Exception e) {
+            throw new BaseException("查询详情失败：" + e.getMessage(), e);
+        }
     }
 
     /**

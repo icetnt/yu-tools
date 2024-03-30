@@ -160,7 +160,7 @@ public class HttpUtil {
         try {
             // 执行请求
             response = commonHttpClient.execute(httpGet);
-            if (response.getStatusLine().getStatusCode() == 401 || response.getStatusLine().getStatusCode() == 403) {
+            if (response.getStatusLine().getStatusCode() == 401 || response.getStatusLine().getStatusCode() == 403 || response.getStatusLine().getStatusCode() == 404) {
                 return String.valueOf(response.getStatusLine().getStatusCode());
             }
             // 获取响应实体
@@ -201,19 +201,22 @@ public class HttpUtil {
         addHeadsToHttpPost(httpPost, headers);
 
         CloseableHttpResponse response = null;
+        int httpCode;
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(postNameValuePairs(parameters), charset));
             response = commonHttpClient.execute(httpPost);
-            if (response.getStatusLine().getStatusCode() == 401 || response.getStatusLine().getStatusCode() == 403) {
-                return String.valueOf(response.getStatusLine().getStatusCode());
+            httpCode = response.getStatusLine().getStatusCode();
+            if (httpCode == 401 || httpCode == 403) {
+                return String.valueOf(httpCode);
             }
-            if (response.getStatusLine().getStatusCode() < 300) {
-                if(response.getStatusLine().getStatusCode() != 204) {
+            if (httpCode < 300) {
+                if(httpCode != 204) {
                     HttpEntity entity = response.getEntity();
                     result = EntityUtils.toString(entity, charset);
                 }
             }else {
-                throw new BaseException("http请求失败，code："+ response.getStatusLine().getStatusCode());
+                log.error("sendPost failed, url:{}, httpCode:{}, msg:{}", url, httpCode, response);
+                throw new BaseException("http请求失败，code："+ httpCode);
             }
         } catch (ClientProtocolException e) {
             log.error("协议错误: {}", e.getMessage());
@@ -312,7 +315,7 @@ public class HttpUtil {
         }
         if (httpCode != HttpStatus.SC_OK) {
             log.error("sendPostWithJson failed, url:{}, httpCode:{}, msg:{}", url, httpCode, response);
-            throw new BaseException("系统繁忙，请重试");
+            throw new BaseException("系统繁忙，请重试, code:" + httpCode + ", resp:" + response);
         }
         return response;
     }

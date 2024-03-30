@@ -23,6 +23,9 @@ public class SysConfigParmas {
     //上传限速最小值（单位MB/s）
     public static String QB_UP_LIMIT_MIN = "0.5";
 
+    public static String TG_BOT_TOKEN;
+    public static String TG_CHAT_ID;
+
 
     public static void init() {
         JELLYFIN_URL = System.getProperty("jfUrl");
@@ -40,6 +43,8 @@ public class SysConfigParmas {
         QB_UP_LIMIT_MAX = StringUtils.isBlank(qbUMax) ? "11" : qbUMax;
         String qbUMin = System.getProperty("qbUMin");
         QB_UP_LIMIT_MIN = StringUtils.isBlank(qbUMin) ? "0.5" : qbUMin;
+        TG_BOT_TOKEN = System.getProperty("tgBotToken");
+        TG_CHAT_ID = System.getProperty("tgChatId");
     }
 
 }
