@@ -23,7 +23,7 @@ public class TgApiUtil {
         try {
             Map<String, String> jsonParams = new HashMap<>();
             jsonParams.put("chat_id", chatId);
-            jsonParams.put("photo", photoUrl);
+            jsonParams.put("photo", StringUtils.replace(photoUrl, "original", "w500"));
             jsonParams.put("parse_mode", "Markdown");
             jsonParams.put("caption", caption);
             HttpUtil.sendPost(String.format("https://api.telegram.org/bot%s/sendPhoto", botApiToken), null, jsonParams, "utf-8");
