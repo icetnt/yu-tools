@@ -28,14 +28,14 @@ public class MoviePilotTask {
                     CacheUtil.DOWNLOADING_CACHE.remove(hash);
                     if(null != mpDownloadAddInfo) {
                         log.info("下载已删除...下载内容:{}, hash:{}", mpDownloadAddInfo.getTitleName(), mpDownloadAddInfo.getHash());
-                        TgApiUtil.sendPhoto(SysConfigParmas.TG_BOT_TOKEN, SysConfigParmas.TG_CHAT_ID, mpDownloadAddInfo.getImgUrl(), mpDownloadAddInfo.getMdMsg("下载已删除", "已删除"));
+                        TgApiUtil.sendPhoto(SysConfigParmas.TG_BOT_TOKEN, SysConfigParmas.TG_CHAT_ID, mpDownloadAddInfo.getImgUrl(), mpDownloadAddInfo.getMdMsg("下载删除", "已删除"));
                     }
                 }else if(qbTorrentDetail.getCompletion_date() > 0) {
                     CacheUtil.DOWNLOADING_CACHE.remove(hash);
                     if(null != mpDownloadAddInfo) {
                         log.info("下载已完成...下载内容:{}, hash:{}", mpDownloadAddInfo.getTitleName(), mpDownloadAddInfo.getHash());
                         TgApiUtil.sendPhoto(SysConfigParmas.TG_BOT_TOKEN, SysConfigParmas.TG_CHAT_ID, mpDownloadAddInfo.getImgUrl(),
-                                mpDownloadAddInfo.getMdMsg("下载已完成", DateUtil.format(new Date(qbTorrentDetail.getCompletion_date() * 1000), "yyyy-MM-dd HH:mm:ss")));
+                                mpDownloadAddInfo.getMdMsg("下载完成", DateUtil.format(new Date(qbTorrentDetail.getCompletion_date() * 1000), "yyyy-MM-dd HH:mm:ss")));
                     }
                     log.info("===================== media download ok, refresh start =====================");
                     JellyfinApiUtil.mediaRefresh();
